@@ -16,19 +16,13 @@ public class Blackjack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        Scanner input = new Scanner (System.in);
 
-        System.out.println("Welcome to Big Papa Blackjack!");
-        System.out.println("Must be legal age to play");
-        System.out.println("Are you over the legal age? 1 for Yes, 2 for No");
-        Scanner input = new Scanner(System.in);
-        int choice1 = input.nextInt();
-
-        if (choice1 == 1) {
-            System.out.println("Legal Age verified -- Initializing Sweet and Cool game");
-        } else if (choice1 == 2) {
-            System.out.println("Sorry, you must be legal age to proceed, this program will now terminate.");
-            System.exit(0);
-        }
+        System.out.println("Welcome to Big Papa Blackjack!\n");
+        
+        ageConfirmation();
+              
         int prizeCash = 100;
         CardDeck cardDeck = new CardDeck();
         CardDeck playerDeck = new CardDeck();
@@ -113,5 +107,45 @@ public class Blackjack {
         System.out.println("Game over! You lost all your money. :(");
         System.exit(0);
     }
-
+    
+    public static void ageConfirmation()
+    {
+        Scanner input = new Scanner (System.in);
+        
+        boolean valid;
+        System.out.println("Must be legal age to play!");
+        System.out.println("Are you over the legal age? Yes or No");
+        
+        do
+        {
+            System.out.print("Please enter Y or N: ");
+            try {
+                
+                var choice = input.nextLine();
+                
+                if ("N".equalsIgnoreCase(choice))
+                {
+                    System.out.println("Sorry, you do not meet age requirment");
+                    System.exit(0);
+                }
+                if ("Y".equalsIgnoreCase(choice))
+                {
+                    valid = true;
+                }
+                else
+                {
+                    throw new IllegalArgumentException
+                    ("input must be Y or N\n");
+                }
+            } 
+            
+            catch (IllegalArgumentException e)
+            {
+                System.out.println(e.getMessage());
+                valid = false;
+            }
+            
+        } while (!valid);
+        System.out.println();
+    }
 }
